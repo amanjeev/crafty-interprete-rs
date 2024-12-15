@@ -1,4 +1,5 @@
 mod errors;
+mod scanner;
 mod tokens;
 
 use clap::{Arg, Command};

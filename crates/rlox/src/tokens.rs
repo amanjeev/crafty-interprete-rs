@@ -1,7 +1,7 @@
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
-enum TokenType {
+pub(crate) enum TokenType {
     // Single-character tokens.
     LeftParen,
     RightParen,
@@ -58,18 +58,23 @@ impl Display for TokenType {
 }
 
 #[derive(Debug)]
-struct Literal;
+pub(crate) struct Literal;
 
 #[derive(Debug)]
-struct Token {
+pub(crate) struct Token {
     ttype: TokenType,
     lexeme: String,
+    literal: Option<Literal>,
     line: usize,
-    literal: Literal,
 }
 
 impl Token {
-    fn new(ttype: TokenType, lexeme: String, line: usize, literal: Literal) -> Self {
+    pub(crate) fn new(
+        ttype: TokenType,
+        lexeme: String,
+        literal: Option<Literal>,
+        line: usize,
+    ) -> Self {
         Token {
             ttype,
             lexeme,
