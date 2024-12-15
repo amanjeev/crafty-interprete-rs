@@ -1,4 +1,11 @@
 use std::io;
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+pub(crate) enum Error {
+    #[error("We got unexpected character.")]
+    UnexpectedCharacter,
+}
 
 fn error(line: usize, message: &str) -> Result<(), io::Error> {
     report(line, "", message)?;

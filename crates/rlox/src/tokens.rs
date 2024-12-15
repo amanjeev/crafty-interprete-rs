@@ -1,4 +1,6 @@
 use std::fmt::{Display, Formatter};
+use std::str::FromStr;
+use crate::errors::Error;
 
 #[derive(Debug)]
 pub(crate) enum TokenType {
@@ -51,6 +53,57 @@ pub(crate) enum TokenType {
     Eof,
 }
 
+impl FromStr for TokenType {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let t = match s {
+            "(" => TokenType::LeftParen,
+            ")" => TokenType::RightParen,
+            "{" => TokenType::LeftBrace,
+            "}" => TokenType::RightBrace,
+            "," => TokenType::Comma,
+            "." => TokenType::Dot,
+            "-" => TokenType::Minus,
+            "+" => TokenType::Plus,
+            ";" => TokenType::Semicolon,
+            "/" => TokenType::Slash,
+            "*" => TokenType::Star,
+            "!" => TokenType::Bang,
+            "!=" => TokenType::BangEqual,
+            "=" => TokenType::Equal,
+            "==" => TokenType::EqualEqual,
+            ">" => TokenType::Greater,
+            ">=" => TokenType::GreaterEqual,
+            "<" => TokenType::Less,
+            "<=" => TokenType::LessEqual,
+            // "Identifier" => TokenType::Identifier,
+            // "String" => TokenType::String,
+            // "Number" => TokenType::Number,
+            // "And" => TokenType::And,
+            // "Class" => TokenType::Class,
+            // "Else" => TokenType::Else,
+            // "False" => TokenType::False,
+            // "Fun" => TokenType::Fun,
+            // "For" => TokenType::For,
+            // "If" => TokenType::If,
+            // "Nil" => TokenType::Nil,
+            // "Or" => TokenType::Or,
+            // "Print" => TokenType::Print,
+            // "Return" => TokenType::Return,
+            // "Super" => TokenType::Super,
+            // "This" => TokenType::This,
+            // "True" => TokenType::True,
+            // "Var" => TokenType::Var,
+            // "While" => TokenType::While,
+            // "Eof" => TokenType::Eof,
+            _ => return Err(Error::UnexpectedCharacter),
+        };
+
+        Ok(t)
+    }
+}
+
 impl Display for TokenType {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", self)
@@ -78,8 +131,8 @@ impl Token {
         Token {
             ttype,
             lexeme,
-            line,
             literal,
+            line,
         }
     }
 }

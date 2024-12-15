@@ -1,6 +1,6 @@
 mod errors;
-mod scanner;
 mod tokens;
+mod scanner;
 
 use clap::{Arg, Command};
 use std::fs::File;
